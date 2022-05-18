@@ -52,7 +52,7 @@
 #EXPOSE 9000
 #CMD ["php-fpm"]
 
-FROM richarvey/nginx-php-fpm:1.10.4
+FROM richarvey/nginx-php-fpm:2.0.0
 
 COPY . .
 
