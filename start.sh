@@ -7,6 +7,9 @@ composer self-update -vvv
 
 composer install --no-dev --working-dir=/var/www/html
 
+echo "Set Permission"
+sudo chmod -R 777 storage && sudo chmod -R 777 bootstrap/cache
+
 #echo "Caching config..."
 #php artisan config:cache
 #
