@@ -3,7 +3,7 @@ echo "Running composer"
 composer global require hirak/prestissimo
 
 echo "Upgrading Composer"
-composer self-update --2
+composer self-update -vvv
 
 composer install --no-dev --working-dir=/var/www/html
 
