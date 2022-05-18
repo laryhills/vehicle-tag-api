@@ -42,6 +42,16 @@ class UpdateTagsTable extends Migration
     {
         Schema::table('tags', function (Blueprint $table) {
             //
+            $table->dropColumn('email');
+            $table->dropColumn('phone');
+            $table->dropColumn('appointment');
+            $table->dropColumn('department');
+            $table->dropColumn('address', 500);
+            $table->dropColumn('vehicle_model');
+            $table->dropColumn('vehicle_color');
+            $table->dropColumn('vehicle_chasis_no');
+            $table->dropColumn('authorized_staff_name');
+            $table->dropColumn('authorized_staff_appointment');
         });
     }
 }

@@ -1,0 +1,70 @@
+version: "3.7"
+
+services:
+    #PHP-FPM Service
+    app:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        container_name: app
+        restart: unless-stopped
+        tty: true
+        working_dir: /var/www/html
+        # binding folders root:in docker
+        # binding config files root:in docker
+        volumes:
+            - ./:/var/www/html
+            - ./docker-files/php/local.ini:/usr/local/etc/php/conf.d/local.ini
+
+        networks:
+            - sail
+
+    #NGINX Service
+    webserver:
+        image: nginx:alpine
+        container_name: webserver
+        restart: unless-stopped
+        tty: true
+        # binding ports outer:inner
+        ports:
+            - "80:80"
+            - "443:443"
+        volumes:
+            - ./:/var/www/html
+            - ./docker-files/nginx/conf.d/app.conf:/etc/nginx/conf.d/default.conf
+        networks:
+            - sail
+
+    #MySQL Service
+#    db:
+#        image: "mysql/mysql-server:8.0"
+#        container_name: db
+#        restart: unless-stopped
+#        tty: true
+#        ports:
+#            - "${FORWARD_DB_PORT:-3306}:3306"
+#        environment:
+#            MYSQL_ROOT_PASSWORD: "${DB_PASSWORD}"
+#            MYSQL_ROOT_HOST: "%"
+#            MYSQL_DATABASE: "${DB_DATABASE}"
+#            MYSQL_USER: "${DB_USERNAME}"
+#            MYSQL_PASSWORD: "${DB_PASSWORD}"
+#            MYSQL_ALLOW_EMPTY_PASSWORD: 1
+#        volumes:
+#            - "sail-mysql:/var/lib/mysql"
+#            - "./docker-files/mysql/create-testing-database.sh:/docker-entrypoint-initdb.d/10-create-testing-database.sh"
+#            - ./docker-files/mysql/my.cnf:/etc/mysql/my.cnf
+#        networks:
+#            - sail
+#        healthcheck:
+#            test: ["CMD", "mysqladmin", "ping", "-p${DB_PASSWORD}"]
+#            retries: 3
+#            timeout: 5s
+
+#Docker Networks
+networks:
+    sail:
+        driver: bridge
+#volumes:
+#    sail-mysql:
+#        driver: local
