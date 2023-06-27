@@ -27,12 +27,12 @@ Route::post('/login', [AuthController::class, 'login']);
 //Protected Routes
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::resource('tags', TagController::class);
-    Route::post('/logout',[AuthController::class, 'logout']);
+    Route::get('/logout',[AuthController::class, 'logout']);
     Route::get('/count', [TagController::class, 'countTags']);
     Route::get('/tags/search/{identifier}', [TagController::class, 'search']);
-    Route::get('/user',[AuthController::class, 'user']);
+    Route::get('/users',[AuthController::class, 'user']);
     Route::post('/register', [AuthController::class, 'register']);
-    Route::put('/user/{id}', [AuthController::class, 'adminUpdate']);
+    Route::put('/users/{id}', [AuthController::class, 'adminUpdate']);
     Route::get('/users', [AuthController::class, 'index']);
     Route::get('/log', [LogController::class, 'index']);
     Route::delete('/log', [LogController::class, 'destroy']);

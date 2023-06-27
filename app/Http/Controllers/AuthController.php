@@ -88,7 +88,7 @@ class AuthController extends Controller
         }
     }
 
-    public function logout(Request $request)
+    public function logout()
     {
         $cookie = Cookie::forget('jwt');
         auth()->user()->tokens()->delete();
@@ -118,6 +118,7 @@ class AuthController extends Controller
             return response([
                 'message' => 'User Account Disabled',
                 'login' => false
+                
             ], 200);
         }
 
@@ -141,23 +142,23 @@ class AuthController extends Controller
         // Create Token
         $token = $user->createToken('token', $ability)->plainTextToken;
 
-//        if($token){
-//            $query = DB::getQueryLog();
-//            //Log query DB
-//            Log::create([
-//                'user' => $user->email,
-//                'action' => 'Login and Token Creation',
-//                'query' => $query[0]['query'],
-//                'parameters'=> preg_replace('/[^A-Za-z0-9\-,]/', '', json_encode($query[0]['bindings']))
-//            ]);
-//            $response = [
-//                'user' => $user,
-//                'token' => $token
-//            ];
-//            return response($response, 200);
-//        }else{
-//            return 'Login Failed';
-//        }
+/*        if($token){
+           $query = DB::getQueryLog();
+           //Log query DB
+           Log::create([
+               'user' => $user->email,
+               'action' => 'Login and Token Creation',
+               'query' => $query[0]['query'],
+               'parameters'=> preg_replace('/[^A-Za-z0-9\-,]/', '', json_encode($query[0]['bindings']))
+           ]);
+           $response = [
+               'user' => $user,
+               'token' => $token
+           ];
+           return response($response, 200);
+       }else{
+           return 'Login Failed';
+       } */
         if($token){
             $query = DB::getQueryLog();
             //Log query DB
